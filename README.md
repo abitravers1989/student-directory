@@ -1,6 +1,6 @@
-#student-directory
+# student-directory
 
-##Background##
+## Background To the Project ##
 
 This is my very first README.
 
