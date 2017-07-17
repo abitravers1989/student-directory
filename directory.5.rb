@@ -15,7 +15,9 @@ def input_students
     puts "Please enter your cohort. Press enter twice when You have done so."
     cohort = gets.gsub("\n",'')
 puts "Please enter a month name only, typed out in full, for example; November" if !Months.include?(cohort)
-      cohort = gets.gsub(/\n/, "November").to_sym
+      cohort = gets.chomp
+       cohort = "November".to_sym if (!Months.include?(cohort) || cohort == "\n")
+
 
     puts "Please enter your hobbies".center(20)
     hobbies = gets.gsub("\n",'')
