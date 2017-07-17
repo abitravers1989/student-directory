@@ -14,10 +14,9 @@ def input_students
 
     puts "Please enter your cohort"
     cohort = gets.chomp
-    while !Months.include?(cohort)
-    puts "Please enter a month name only, typed out in full, for example; November"
-    cohort = gets.chomp
-end
+puts "Please enter a month name only, typed out in full, for example; November" if !Months.include?(cohort)
+      cohort = gets.gsub(/\n/, "November").to_sym
+
     puts "Please enter your hobbies".center(20)
     hobbies = gets.chomp
     puts "Please enter your country of birth".center(20)
@@ -33,8 +32,9 @@ end
   #return the array of students
   students
 #because i want to be able to use the :names data elsewehere?
-
 end
+
+
 
 
 def print_header
@@ -44,6 +44,7 @@ end
 
 
 def print(students)
+
      counter = 0
      counter_2 = students.size
       while counter < counter_2
@@ -58,6 +59,7 @@ def print(students)
 def print_footer(students)
   puts "Overall, we have #{students.count} great students".center(70, '*')
 end
+
 
 # Nothing will happen until we call the methods
 students = input_students
