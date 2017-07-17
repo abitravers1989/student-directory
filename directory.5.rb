@@ -1,4 +1,15 @@
 
+def interactive_menu
+   loop do
+    #1. print the menu and ask user what to do
+    #2. read the inout and save it into a variable
+    #3. do what the user asked
+    end
+  end
+
+
+
+
 #Array of all the students
 Months = %w(january february march april may june july august september october november december January February March April May June July August September October November December).to_a
 def input_students
