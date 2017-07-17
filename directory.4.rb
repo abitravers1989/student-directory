@@ -30,15 +30,20 @@ end
 
 
 def print(students)
-     arr = []
-     arr << students
-      while students != arr
-          puts "#{students}"
+     counter = 0
+     new_string = ""
+      while counter >=1
+        new_string << "#{students}"
+      end
+      if new_string == students
+        counter = 1
+      else
+        counter = 0
+      end
+  end
+
           #{students[:name]} (#{students[:cohort]}cohort)"
-          end
-        end
-
-
+    
 
 
 def print_footer(students)
