@@ -8,27 +8,27 @@ def input_students
   #create an empty Array
   students = []
   #gets the first name
-  name = gets.chomp
+  name = gets.gsub("\n",'')
   #while the name is not empty, repeat this code
   while !name.empty? do
     #Need to fix twice enter thing
     puts "Please enter your cohort. Press enter twice when You have done so."
-    cohort = gets.chomp
+    cohort = gets.gsub("\n",'')
 puts "Please enter a month name only, typed out in full, for example; November" if !Months.include?(cohort)
       cohort = gets.gsub(/\n/, "November").to_sym
 
     puts "Please enter your hobbies".center(20)
-    hobbies = gets.chomp
+    hobbies = gets.gsub("\n",'')
     puts "Please enter your country of birth".center(20)
-    country_b = gets.chomp
+    country_b = gets.gsub("\n",'')
     puts "Finally your height".center(20)
-    height = gets.chomp
+    height = gets.gsub("\n",'')
     students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
     x = students.count
     puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
-    name = gets.chomp
+    name = gets.gsub("\n",'')
   end
   #return the array of students
 
