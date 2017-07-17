@@ -11,8 +11,8 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
-
-    puts "Please enter your cohort"
+    #Need to fix twice enter thing
+    puts "Please enter your cohort. Press enter twice when You have done so."
     cohort = gets.chomp
 puts "Please enter a month name only, typed out in full, for example; November" if !Months.include?(cohort)
       cohort = gets.gsub(/\n/, "November").to_sym
@@ -24,7 +24,8 @@ puts "Please enter a month name only, typed out in full, for example; November" 
     puts "Finally your height".center(20)
     height = gets.chomp
     students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
-    puts "Now we have #{students.count} students".center(70, '*')
+    x = students.count
+    puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
     name = gets.chomp
@@ -43,7 +44,7 @@ end
 
 
 def print(students)
-=begin ... STRUGGLING WITH THIS 
+=begin ... STRUGGLING WITH THIS
   check = "November"
   namez = :name.to_s
   cohortz = :cohort.to_s
