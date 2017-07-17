@@ -1,17 +1,36 @@
 
 def interactive_menu
+students = []
    loop do
     #1. print the menu and ask user what to do
+     puts "1. Input the students"
+     puts "2. Show the students"
+     puts "9. Exit"
+
     #2. read the inout and save it into a variable
+    selection = gets.chomp
     #3. do what the user asked
+    case selection
+    when "1"
+      #inout the students
+      students = input_students
+    when "2"
+      #show the students
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit #this will cause programe to terminate
+    else
+      puts "No se a lo que te refieres. I am unable to comprehend your command"
     end
   end
 
-
+end
 
 
 #Array of all the students
-Months = %w(january february march april may june july august september october november december January February March April May June July August September October November December).to_a
+Months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December).to_a
 def input_students
 
   puts "Please enter the names of the students".center(70, '*')
@@ -82,6 +101,7 @@ end
 
 
 # Nothing will happen until we call the methods
+students = interactive_menu
 students = input_students
 print_header
 print(students)
