@@ -27,9 +27,14 @@ puts "-------------"
 end
 
 def print(students)
- students.each_with_index do | student, index |
-  puts "#{index+1} #{student[:name]} (#{student[:cohort]}cohort)"
-end
+    puts "To print only the student's whose names begin with it a certain letter, type that letter below:"
+    letter =gets.chomp.downcase
+      students.each_with_index do |student, index|
+              if students[:name(0)] != Letter
+               puts "#{index+1} #{student[:name]} (#{student[:cohort]}cohort)"
+          end
+        end
+  
 end
 
 def print_footer(students)
