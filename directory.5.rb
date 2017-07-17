@@ -30,11 +30,10 @@ puts "Please enter a month name only, typed out in full, for example; November" 
     name = gets.chomp
   end
   #return the array of students
-  students
+
+  p students
 #because i want to be able to use the :names data elsewehere?
 end
-
-
 
 
 def print_header
@@ -44,6 +43,12 @@ end
 
 
 def print(students)
+=begin ... STRUGGLING WITH THIS 
+  check = "November"
+  namez = :name.to_s
+  cohortz = :cohort.to_s
+  students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
+=end
 
      counter = 0
      counter_2 = students.size
