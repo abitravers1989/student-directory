@@ -1,7 +1,8 @@
 
 #Array of all the students
-
+Months = %w(january february march april may june july august september october november december January February March April May June July August September October November December).to_a
 def input_students
+
   puts "Please enter the names of the students".center(70, '*')
   puts "To finish, just hit return twice".center(70, '*')
   #create an empty Array
@@ -10,7 +11,13 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
-    #add the student hash to the Array
+
+    puts "Please enter your cohort"
+    cohort = gets.chomp
+    while !Months.include?(cohort)
+    puts "Please enter a month name only, typed out in full, for example; November"
+    cohort = gets.chomp
+end
     puts "Please enter your hobbies".center(20)
     hobbies = gets.chomp
     puts "Please enter your country of birth".center(20)
