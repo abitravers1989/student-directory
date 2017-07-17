@@ -31,19 +31,13 @@ end
 
 def print(students)
      counter = 0
-     new_string = ""
-      while counter >=1
-        new_string << "#{students}"
-      end
-      if new_string == students
-        counter = 1
-      else
-        counter = 0
-      end
+     counter_2 = students.size
+      while counter < counter_2
+        puts "#{students}"
+      counter += 1
+    end
   end
 
-          #{students[:name]} (#{students[:cohort]}cohort)"
-    
 
 
 def print_footer(students)
