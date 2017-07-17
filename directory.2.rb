@@ -32,9 +32,8 @@ end
 def print(students)
     puts "To print only the student's whose names begin with it a certain letter, type that letter below:"
     letter =gets.chomp.downcase
-    name = students [name:].to_s
       students.each do |student|
-         puts " #{student[:name]} (#{student[:cohort]}cohort)" if name.start_with?("#{letter}")
+         puts " #{student[:name]} (#{student[:cohort]}cohort)" if student[:name][0] == letter 
           end
         end
 
