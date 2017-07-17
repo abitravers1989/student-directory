@@ -24,7 +24,7 @@ end
     country_b = gets.chomp
     puts "Finally your height".center(20)
     height = gets.chomp
-    students << {name: name, cohort: :november, hobbies: hobbies, country_b: country_b, height: height}
+    students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
     puts "Now we have #{students.count} students".center(70, '*')
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
