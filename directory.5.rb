@@ -34,7 +34,7 @@ puts "Please enter a month name only, typed out in full, for example; November" 
   end
   #return the array of students
 
-  p students
+   students
 #because i want to be able to use the :names data elsewehere?
 end
 
@@ -42,6 +42,7 @@ end
 def print_header
 puts "The students of Villains Academy".center(70, '*')
 puts "-------------".center(70)
+
 end
 
 
@@ -52,20 +53,20 @@ def print(students)
   cohortz = :cohort.to_s
   students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
 =end
-
-     counter = 0
-     counter_2 = students.size
-      while counter < counter_2
+    if students.size != 0
         puts "Name; #{students[counter][:name]} Cohort; #{students[counter][:cohort]} Hobbies; #{students[counter][:hobbies]}
         Country of Birth; #{students[counter][:country_b]} Height; #{students[counter][:height]}". center(70)
-      counter += 1
+    else
+      puts "No Students :-(".center(70)
     end
   end
 
 
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(70, '*')
+
+  puts "Overall, we have #{students.count} great students".center(70, '*') if students.size != 0
+
 end
 
 
