@@ -6,18 +6,18 @@ def input_students
   # get the first name
   name = gets.chomp
   # while the name is not empty, repeat this code
-  while name != ("\n")
+  while !name.empty? do
   # add the student hash to the array
   students << {name: name, cohort: November}
   puts "Now we have #{students.count} students"
   # get another name from the user
-  name = get.chomp
+  name = gets.chomp
   end
   # return the array of students
   students
 end
 
-def print-header
+def print_header
   put "The students of my cohort at Makers Academy"
   puts "-------------"
 end
