@@ -33,7 +33,7 @@ def print(students)
      counter = 0
      counter_2 = students.size
       while counter < counter_2
-        puts "#{students}"
+        puts "#{students[counter][:name]} (#{students[counter][:cohort]} cohort)"
       counter += 1
     end
   end
