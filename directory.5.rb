@@ -24,8 +24,13 @@ def input_students
   if !@months.to_a.include?(cohort) || cohort == "\n"
     cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
   end
-
-    @students << {name: name, cohort: cohort}
+    puts "Please enter your hobbies"
+    hobbies = gets.chomp
+    puts "Please enter your country of birth"
+    country_b = gets.chomp
+    puts "Finally your height"
+   height = gets.chomp
+    @students << {name: name, cohort: cohort , hobbies: hobbies, country_b: country_b, height: height}
 
     x = @students.count
     puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
@@ -102,14 +107,13 @@ def print_students_list
   students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
 =end
 
-@students.each do |student|
-    if student.count >= 0
-        puts "Name; #{student[:name]} Cohort; #{student[:cohort]}". center(70)
-    elsif key.count <= 0
-      puts "No Students :-(".center(70)
-    end
+h = @students.group_by {|x| x[:cohort]}
+
+h.map do |key, value|
+  puts "#{key} and #{value}"
+        #puts "Name; #{student[:name]} Cohort; #{student[:cohort]}". center(70)
 end
-end 
+end
 
 
 
