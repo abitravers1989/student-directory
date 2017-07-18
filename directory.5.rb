@@ -107,17 +107,18 @@ def print_students_list
   students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
 =end
 
-h = @students.sort_by {|x| x[:cohort]}.selct {|x| puts "Name #{x[:name]} : #{x[:cohort]}"}
+h = @students.group_by {|x| x[:cohort]}
 counter = 0
 counter_2 = @students.count
 while counter < counter_2
   h.map do |key, value|
         puts "Cohort: #{key}:"
             @students.each do |u|
-              puts "#{u[:name]}" if  (value[counter][:cohort] == key
+              puts "#{u[counter][:name]}" if  (value[counter][:cohort] == key
 
       counter += 1
   break
+end
 end
         #puts "Name; #{student[:name]} Cohort; #{student[:cohort]}". center(70)
 
