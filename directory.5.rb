@@ -109,11 +109,17 @@ def print_students_list
 
 h = @students.group_by {|x| x[:cohort]}
 
-h.map do |key, value|
-  puts "#{key} and #{value}"
+
+counter = 0
+counter_2 = @students.count
+while counter < counter_2
+  h.map do |key, value|
+        puts "#{key} and #{value[counter][:name]} #{value[counter][:cohort]}"
+      counter += 1
+  break
+end
+
         #puts "Name; #{student[:name]} Cohort; #{student[:cohort]}". center(70)
-end
-end
 
 
 
