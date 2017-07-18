@@ -10,6 +10,7 @@ def print_menu
 end
 
 def show_students
+  students = @student
   print_header
   print(students)
   print_footer(students)
@@ -17,24 +18,19 @@ end
 
 
 def interactive_menu
+  students = @student
    loop do
-    #1. print the menu and ask user what to do
-     puts "1. Input the students"
-     puts "2. Show the students"
-     puts "9. Exit"
-
+    print_menu
     #2. read the inout and save it into a variable
     selection = gets.chomp
     #3. do what the user asked
     case selection
     when "1"
-      #inout the students
-      students = input_students
+      #input the students
+      @students = input_students
     when "2"
       #show the students
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when "9"
       exit #this will cause programe to terminate
     else
@@ -45,14 +41,15 @@ def interactive_menu
 end
 
 
-#Array of all the students
+#Array of all the cohort months
 Months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December).to_a
+
 def input_students
 
   puts "Please enter the names of the students".center(70, '*')
   puts "To finish, just hit return twice".center(70, '*')
   #create an empty Array
-  students = []
+
   #gets the first name
   name = gets.gsub("\n",'')
   #while the name is not empty, repeat this code
@@ -71,17 +68,14 @@ puts "Please enter a month name only, typed out in full, for example; November" 
     country_b = gets.gsub("\n",'')
     puts "Finally your height".center(20)
     height = gets.gsub("\n",'')
-    students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
-    x = students.count
+    @students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
+    x = @students.count
     puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
     name = gets.gsub("\n",'')
   end
-  #return the array of students
 
-   students
-#because i want to be able to use the :names data elsewehere?
 end
 
 
@@ -93,15 +87,16 @@ end
 
 
 def print(students)
-=begin ... STRUGGLING WITH THIS
+=begin ... STRUGGLING WITH THIS.. How to sort the students by cohort and retrun them this way
   check = "November"
   namez = :name.to_s
   cohortz = :cohort.to_s
   students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
 =end
+students = @student
     if students.size != 0
-        puts "Name; #{students[counter][:name]} Cohort; #{students[counter][:cohort]} Hobbies; #{students[counter][:hobbies]}
-        Country of Birth; #{students[counter][:country_b]} Height; #{students[counter][:height]}". center(70)
+        puts "Name; #{@students[counter][:name]} Cohort; #{@students[counter][:cohort]} Hobbies; #{@students[counter][:hobbies]}
+        Country of Birth; #{@students[counter][:country_b]} Height; #{@students[counter][:height]}". center(70)
     else
       puts "No Students :-(".center(70)
     end
@@ -110,8 +105,8 @@ def print(students)
 
 
 def print_footer(students)
-
-  puts "Overall, we have #{students.count} great students".center(70, '*') if students.size != 0
+students = @student
+  puts "Overall, we have #{@students.count} great students".center(70, '*') if @students.size != 0
 
 end
 
@@ -120,5 +115,5 @@ end
 students = interactive_menu
 students = input_students
 print_header
-print(students)
-print_footer(students)
+print(@students)
+print_footer(@students)
