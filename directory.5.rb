@@ -10,32 +10,18 @@ def print_menu
 end
 
 def show_students
-  students = @student
+
   print_header
-  print(students)
-  print_footer(students)
+  print_students_list
+  print_footer
 end
 
 
 def interactive_menu
-  students = @student
+
    loop do
     print_menu
-    #2. read the inout and save it into a variable
-    selection = gets.chomp
-    #3. do what the user asked
-    case selection
-    when "1"
-      #input the students
-      @students = input_students
-    when "2"
-      #show the students
-      show_students
-    when "9"
-      exit #this will cause programe to terminate
-    else
-      puts "No se a lo que te refieres. I am unable to comprehend your command"
-    end
+    process(gets.chomp)
   end
 
 end
@@ -86,15 +72,15 @@ puts "-------------".center(70)
 end
 
 
-def print(students)
+def print_students_list
 =begin ... STRUGGLING WITH THIS.. How to sort the students by cohort and retrun them this way
   check = "November"
   namez = :name.to_s
   cohortz = :cohort.to_s
   students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
 =end
-students = @student
-    if students.size != 0
+
+    if @students.size != 0
         puts "Name; #{@students[counter][:name]} Cohort; #{@students[counter][:cohort]} Hobbies; #{@students[counter][:hobbies]}
         Country of Birth; #{@students[counter][:country_b]} Height; #{@students[counter][:height]}". center(70)
     else
@@ -104,16 +90,8 @@ students = @student
 
 
 
-def print_footer(students)
-students = @student
+def print_footer
+
   puts "Overall, we have #{@students.count} great students".center(70, '*') if @students.size != 0
 
 end
-
-
-# Nothing will happen until we call the methods
-students = interactive_menu
-students = input_students
-print_header
-print(@students)
-print_footer(@students)
