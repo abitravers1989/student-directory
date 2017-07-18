@@ -1,45 +1,45 @@
 @students = []
 #Array of all the cohort months
-Months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December).to_a
+
 
 
 def input_students
+@months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December)
 
   puts "Please enter the names of the students".center(70, '*')
   puts "To finish, just hit return twice".center(70, '*')
 
   #gets the first name
-  name = gets.gsub("\n",'')
+  name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
 
+
     puts "Please enter your cohort. Press enter twice when You have done so."
-    cohort = gets.gsub("\n",'')
-    puts "Please enter a month name only, typed out in full, for example; November" if !Months.include?(cohort)
     cohort = gets.chomp
-    cohort = "November".to_sym if (!Months.include?(cohort) || cohort == "\n")
+    if !@months.include?(cohort)
+    puts "Please enter a month name only, typed out in full, for example; November"
+    cohort = gets.chomp
+  end
+  if !@months.to_a.include?(cohort) || cohort == "\n"
+    cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
+  end
 
-
-    puts "Please enter your hobbies".center(20)
-    hobbies = gets.gsub("\n",'')
-
-    puts "Please enter your country of birth".center(20)
-    country_b = gets.gsub("\n",'')
-
-    puts "Finally your height".center(20)
-    height = gets.gsub("\n",'')
-
-    @students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
+    @students << {name: name, cohort: cohort}
 
     x = @students.count
     puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
 
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
-    name = gets.gsub("\n",'')
+    name = gets.chomp
   end
 
+p @students
+
 end
+
+
 
 
 def interactive_menu
@@ -102,21 +102,27 @@ def print_students_list
   students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
 =end
 
-x = @students.count
-    if x <= 0
-        puts "Name; #{@students[:name]} Cohort; #{@students[:cohort]} Hobbies; #{@students[:hobbies]}
-        Country of Birth; #{@students[:country_b]} Height; #{@students[:height]}". center(70)
-    else
+@students.each do |student|
+    if student.count >= 0
+        puts "Name; #{student[:name]} Cohort; #{student[:cohort]}". center(70)
+    elsif key.count <= 0
       puts "No Students :-(".center(70)
     end
-  end
+end
+end 
 
 
 
 def print_footer
 
-  puts "Overall, we have #{@students.count} great students".center(70, '*') if @students.size != 0
+  x = @students.count
+  if x >= 1
+  puts "Overall, we have #{x} great students".center(70, '*')
+elsif x <= 0
+  puts "No Students :-(".center(70)
+end
 
 end
+
 
 interactive_menu
