@@ -40,7 +40,6 @@ def input_students
     name = gets.chomp
   end
 
-p @students
 
 end
 
@@ -100,13 +99,9 @@ end
 
 
 def print_students_list
-=begin ... STRUGGLING WITH THIS.. How to sort the students by cohort and retrun them this way
-  check = "November"
-  namez = :name.to_s
-  cohortz = :cohort.to_s
-  students.map {|hash| hash[namez] if check.include?(hash[cohortz])}.compact
-=end
-
+=begin
+CANNOT WORK 8 out so putting this back to orignal code for now and moving on.
+Attempt1:
 h = @students.group_by {|x| x[:cohort]}
 counter = 0
 counter_2 = @students.count
@@ -120,7 +115,18 @@ while counter < counter_2
   break
 end
 end
-        #puts "Name; #{student[:name]} Cohort; #{student[:cohort]}". center(70)
+Attempt2:
+h = @students.sort_by {|x| x[:cohort]}
+h.select {|y| puts "Name #{y[:cohort]} : #{y[:name]}"}
+
+=end
+
+
+  @students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
+
 
 
 
@@ -134,6 +140,8 @@ elsif x <= 0
 end
 
 end
+
+
 
 
 interactive_menu
