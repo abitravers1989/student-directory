@@ -1,59 +1,17 @@
 @students = []
 #Array of all the cohort months
 
+#DOES THE ORDERING OF THESE METHODS MATTER ? (google when have internet)
 
-
-def input_students
-@months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December)
-
-  puts "Please enter the names of the students".center(70, '*')
-  puts "To finish, just hit return twice".center(70, '*')
-
-  #gets the first name
-  name = STDIN.gets.chomp
-  #while the name is not empty, repeat this code
-  while !name.empty? do
-
-
-    puts "Please enter your cohort. Press enter twice when You have done so."
-    cohort = STDIN.gets.chomp
-    if !@months.include?(cohort)
-    puts "Please enter a month name only, typed out in full, for example; November"
-    cohort = STDIN.gets.chomp
-  end
-  if !@months.to_a.include?(cohort) || cohort == "\n"
-    cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
-  end
-    puts "Please enter your hobbies"
-    hobbies = STDIN.chomp
-    puts "Please enter your country of birth"
-    country_b = STDIN.chomp
-    puts "Finally your height"
-   height = STDIN.chomp
-    @students << {name: name, cohort: cohort , hobbies: hobbies, country_b: country_b, height: height}
-
-    x = @students.count
-    puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
-
-    #get another name from the user
-    puts "Please enter another name, or double enter to end.".center(70, '*')
-    name = STDIN.gets.chomp
-  end
-
-
+def initilizer
+@name = name
+@cohort = cohort
 end
 
 
-
-
-def interactive_menu
-   loop do
-    print_menu
-    process(STDIN.gets.chomp)
-  end
-
+def creating_array_of_students
+    @students << {name: @name, cohort: @cohort}
 end
-
 
 
 def print_menu
@@ -66,11 +24,11 @@ def print_menu
 end
 
 
-
-def show_students
-  print_header
-  print_students_list
-  print_footer
+def interactive_menu
+   loop do
+    print_menu
+    process(STDIN.gets.chomp)
+  end
 end
 
 
@@ -79,7 +37,7 @@ def process(selection)
   case selection
     when "1"
      #input the students
-     @students = input_students
+     input_students
      when "2"
      #show the students
      show_students
@@ -94,6 +52,57 @@ def process(selection)
   end
 end
 
+
+
+def input_students
+@months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December)
+
+  puts "Please enter the names of the students".center(70, '*')
+  puts "To finish, just hit return twice".center(70, '*')
+
+  #gets the first name
+  @name = STDIN.gets.chomp
+  #while the name is not empty, repeat this code
+   while !@name.empty?
+
+    puts "Please enter your cohort. Press enter twice when You have done so."
+    @cohort = STDIN.gets.chomp
+    if !@months.include?(@cohort)
+    puts "Please enter a month name only, typed out in full, for example; November"
+    @cohort = STDIN.gets.chomp
+  end
+  if !@months.to_a.include?(@cohort) || @cohort == "\n"
+    @cohort = @cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
+  end
+    puts "Please enter your hobbies"
+    hobbies = STDIN.gets.chomp
+    puts "Please enter your country of birth"
+    country_b = STDIN.gets.chomp
+    puts "Finally your height"
+   height = STDIN.gets.chomp
+
+creating_array_of_students
+
+
+    x = @students.count
+    puts "Now we have #{x}" " #{x==1 ? "student" : "students"}".center(70, '*')
+
+    #get another name from the user
+    puts "Please enter another name, or double enter to end.".center(70, '*')
+    name = STDIN.gets.chomp
+
+
+  end
+
+
+end
+
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
 
 
 
@@ -127,13 +136,10 @@ h.select {|y| puts "Name #{y[:cohort]} : #{y[:name]}"}
 
 =end
 
-
   @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
-
-
 
 
 def print_footer
@@ -162,8 +168,10 @@ end
   def load_students(filename = "students.csv")
     file = File.open(filename, "r")
     file.readlines.each do | line |
-      name, cohort = line.chomp.split (',')
-      @students << {name: name, cohort: cohort.to_sym}
+      @name, @cohort = line.chomp.split (',')
+
+creating_array_of_students
+
     end
   file.close
 end
