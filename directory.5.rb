@@ -10,26 +10,26 @@ def input_students
   puts "To finish, just hit return twice".center(70, '*')
 
   #gets the first name
-  name = gets.chomp
+  name = STDIN.gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
 
 
     puts "Please enter your cohort. Press enter twice when You have done so."
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     if !@months.include?(cohort)
     puts "Please enter a month name only, typed out in full, for example; November"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
   end
   if !@months.to_a.include?(cohort) || cohort == "\n"
     cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
   end
     puts "Please enter your hobbies"
-    hobbies = gets.chomp
+    hobbies = STDIN.chomp
     puts "Please enter your country of birth"
-    country_b = gets.chomp
+    country_b = STDIN.chomp
     puts "Finally your height"
-   height = gets.chomp
+   height = STDIN.chomp
     @students << {name: name, cohort: cohort , hobbies: hobbies, country_b: country_b, height: height}
 
     x = @students.count
@@ -37,7 +37,7 @@ def input_students
 
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
 
 
@@ -49,7 +49,7 @@ end
 def interactive_menu
    loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 
 end
@@ -159,8 +159,8 @@ def save_students
   file.close
 end
 
-  def load_students
-    file = File.open("students.csv", "r")
+  def load_students(filename = "students.csv")
+    file = File.open(filename, "r")
     file.readlines.each do | line |
       name, cohort = line.chomp.split (',')
       @students << {name: name, cohort: cohort.to_sym}
@@ -168,4 +168,18 @@ end
   file.close
 end
 
+
+def try_load_students
+  filename = ARGV.first #the first argument from the command line
+  return if filename.nil? #get out of this method if it isn't given
+  if File.exists?(filename) #IF IT EXITS DO
+    load_students(filename)
+    puts "loaded #{@student.count} from #{filename}"
+  else #if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit #quit the program
+  end
+end
+
+try_load_students
 interactive_menu
