@@ -55,7 +55,7 @@ end
 
 
 def input_students
-@months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December)
+months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December)
 
   puts "Please enter the names of the students".center(70, '*')
   puts "To finish, just hit return twice".center(70, '*')
@@ -63,15 +63,15 @@ def input_students
   #gets the first name
   @name = STDIN.gets.chomp
   #while the name is not empty, repeat this code
-   while !@name.empty?
+while !@name == "Exit" || !@name == "exit"
 
     puts "Please enter your cohort. Press enter twice when You have done so."
     @cohort = STDIN.gets.chomp
-    if !@months.include?(@cohort)
+    if !months.include?(@cohort)
     puts "Please enter a month name only, typed out in full, for example; November"
     @cohort = STDIN.gets.chomp
   end
-  if !@months.to_a.include?(@cohort) || @cohort == "\n"
+  if !months.to_a.include?(@cohort) || @cohort == "\n"
     @cohort = @cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
   end
     puts "Please enter your hobbies"
@@ -80,7 +80,7 @@ def input_students
     country_b = STDIN.gets.chomp
     puts "Finally your height"
    height = STDIN.gets.chomp
-
+#######it breaks the cutout of the loop ... so double return no longer works
 creating_array_of_students
 
 
@@ -90,9 +90,7 @@ creating_array_of_students
     #get another name from the user
     puts "Please enter another name, or double enter to end.".center(70, '*')
     name = STDIN.gets.chomp
-
-
-  end
+end
 
 
 end
