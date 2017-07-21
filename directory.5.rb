@@ -3,14 +3,11 @@
 
 #DOES THE ORDERING OF THESE METHODS MATTER ? (google when have internet)
 
-def initilizer
-@name = name
-@cohort = cohort
-end
+
 
 
 def creating_array_of_students
-    @students << {name: @name, cohort: @cohort}
+    @students << {name: name, cohort: cohort}
 end
 
 
@@ -61,18 +58,20 @@ months = %w(january february, march april may june july august september october
   puts "To finish, just hit return twice".center(70, '*')
 
   #gets the first name
-  @name = STDIN.gets.chomp
+  name = STDIN.gets.chomp
   #while the name is not empty, repeat this code
-while !@name == "Exit" || !@name == "exit"
-
+while !name == "Exit" || !name == "exit"
+loop do
     puts "Please enter your cohort. Press enter twice when You have done so."
-    @cohort = STDIN.gets.chomp
-    if !months.include?(@cohort)
+    cohort = STDIN.gets.chomp
+    if !months.include?(cohort)
     puts "Please enter a month name only, typed out in full, for example; November"
-    @cohort = STDIN.gets.chomp
+    cohort = STDIN.gets.chomp
+    break
   end
-  if !months.to_a.include?(@cohort) || @cohort == "\n"
-    @cohort = @cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
+  if !months.to_a.include?(cohort) || cohort == "\n"
+    cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
+  break
   end
     puts "Please enter your hobbies"
     hobbies = STDIN.gets.chomp
@@ -81,7 +80,7 @@ while !@name == "Exit" || !@name == "exit"
     puts "Finally your height"
    height = STDIN.gets.chomp
 #######it breaks the cutout of the loop ... so double return no longer works
-creating_array_of_students
+creating_array_of_students(name, cohort)
 
 
     x = @students.count
@@ -166,26 +165,25 @@ end
   def load_students(filename = "students.csv")
     file = File.open(filename, "r")
     file.readlines.each do | line |
-      @name, @cohort = line.chomp.split (',')
-
-creating_array_of_students
-
+      name, cohort = line.chomp.split(',')
+creating_array_of_students(name, cohort)
     end
   file.close
 end
 
 
 def try_load_students
-  filename = ARGV.first #the first argument from the command line
-  return if filename.nil? #get out of this method if it isn't given
-  if File.exists?(filename) #IF IT EXITS DO
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
     load_students(filename)
-    puts "loaded #{@student.count} from #{filename}"
-  else #if it doesn't exist
+     puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
-    exit #quit the program
+    exit # quit the program
   end
 end
 
 try_load_students
+end
 interactive_menu

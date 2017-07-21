@@ -155,7 +155,7 @@ end
   def load_students(filename = "students.csv")
     file = File.open(filename, "r")
     file.readlines.each do | line |
-      name, cohort = line.chomp.split (',')
+      name, cohort = line.chomp.split(',')
      @students << {name: name, cohort: cohort}
     end
   file.close
@@ -165,14 +165,18 @@ end
 def try_load_students
     if ARGV.first.nil?
         filename = "students.csv"
+        load_students(filename)
+          puts "loaded #{filename}"
+        exit
     else
       filename = ARGV.first
-    end
   load_students(filename)
-    puts "loaded #{@student.count} from #{filename}"
+    puts "loaded file;#{filename}"
     exit #quit the program
+
+  end
 end
 
 
-p try_load_students
+try_load_students
 interactive_menu
