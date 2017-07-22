@@ -25,14 +25,19 @@ end
 def process(selection)
   case selection
     when "1"
+      "You have selected 1, we will now go through the process to put students into our database."
       input_students
      when "2"
+       "You have selected 2, here are the students currently in our database."
         show_students
      when "3"
+       "You have selected 3, we will now save the students you have input to our database."
         save_students
      when "4"
+       "You have selected 4, we will now show you the students in your database."
         load_students
      when "9"
+        "You have selected 9, goodbye :-)"
         exit #this will cause programe to terminate
      else
         puts "No se a lo que te refieres. I am unable to comprehend your command"
