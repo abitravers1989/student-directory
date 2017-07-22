@@ -123,9 +123,11 @@ end
 end
 
 def save_students
-  # open the file for writing
-  file = File.open("students.csv", "w")
-  # iterate over the array of students
+  puts "Please put the name of the file you wish to save the students too. If you do
+  not have one please use 'students.csv'. This is the default file we will use."
+  filename = STDIN.gets.chomp
+  filename = "students.csv" if filename.empty?
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -135,7 +137,11 @@ def save_students
   puts "Thank you, your list has been created and it is a goodun!"
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
+  puts "We are loading the database of students. Please select a filename to load
+  if you do not wish to continue with the students.csv file."
+  filename = STDIN.gets.chomp
+  filename = "students.csv" if filename.empty?
     file = File.open(filename, "r")
     file.readlines.each do | line |
       name, cohort = line.chomp.split(',')
