@@ -1,18 +1,11 @@
 @students = []
-#Array of all the cohort months
 
-#DOES THE ORDERING OF THESE METHODS MATTER ? (google when have internet)
-
-
-
-
-def creating_array_of_students
+def creating_array_of_students(name, cohort)
     @students << {name: name, cohort: cohort}
 end
 
 
 def print_menu
-  #1. print the menu and ask user what to do
    puts "1. Input the students"
    puts "2. Show the students"
    puts "3. Save the list to students.csv"
@@ -30,25 +23,21 @@ end
 
 
 def process(selection)
-
   case selection
     when "1"
-     #input the students
-     input_students
+      input_students
      when "2"
-     #show the students
-     show_students
-    when "3"
-     save_students
-   when "4"
-     load_students
+        show_students
+     when "3"
+        save_students
+     when "4"
+        load_students
      when "9"
-     exit #this will cause programe to terminate
+        exit #this will cause programe to terminate
      else
-     puts "No se a lo que te refieres. I am unable to comprehend your command"
+        puts "No se a lo que te refieres. I am unable to comprehend your command"
   end
 end
-
 
 
 def input_students
@@ -56,22 +45,19 @@ months = %w(january february, march april may june july august september october
 
   puts "Please enter the names of the students".center(70, '*')
   puts "To finish, just hit return twice".center(70, '*')
-
+@students = []
   #gets the first name
   name = STDIN.gets.chomp
   #while the name is not empty, repeat this code
-while !name == "Exit" || !name == "exit"
-loop do
+while !name.empty?
     puts "Please enter your cohort. Press enter twice when You have done so."
     cohort = STDIN.gets.chomp
     if !months.include?(cohort)
     puts "Please enter a month name only, typed out in full, for example; November"
     cohort = STDIN.gets.chomp
-    break
   end
   if !months.to_a.include?(cohort) || cohort == "\n"
     cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
-  break
   end
     puts "Please enter your hobbies"
     hobbies = STDIN.gets.chomp
@@ -97,8 +83,8 @@ end
 
 def show_students
   print_header
-  print_students_list
-  print_footer
+  print_students_list(@students)
+  print_footer(@students)
 end
 
 
@@ -110,37 +96,18 @@ puts "-------------".center(70)
 end
 
 
-def print_students_list
-=begin
-CANNOT WORK 8 out so putting this back to orignal code for now and moving on.
-Attempt1:
-h = @students.group_by {|x| x[:cohort]}
-counter = 0
-counter_2 = @students.count
-while counter < counter_2
-  h.map do |key, value|
-        puts "Cohort: #{key}:"
-            @students.each do |u|
-              puts "#{u[counter][:name]}" if  (value[counter][:cohort] == key
-
-      counter += 1
-  break
-end
-end
-Attempt2:
-h = @students.sort_by {|x| x[:cohort]}
-h.select {|y| puts "Name #{y[:cohort]} : #{y[:name]}"}
-
-=end
-
-  @students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
-  end
+def print_students_list(h)
+h = h.group_by {|x| x[:cohort]}.values
+    h.each do |student|
+      student.each_with_index do |y, index|
+        puts "#{index}: #{y[:name]} Cohort #{y[:cohort]}"
+      end
+    end
 end
 
 
-def print_footer
-
+def print_footer(students)
+  students = @students
   x = @students.count
   if x >= 1
   puts "Overall, we have #{x} great students".center(70, '*')
@@ -160,30 +127,30 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "Thank you, your list has been created and it is a goodun!"
 end
 
-  def load_students(filename = "students.csv")
+def load_students(filename = "students.csv")
     file = File.open(filename, "r")
     file.readlines.each do | line |
       name, cohort = line.chomp.split(',')
 creating_array_of_students(name, cohort)
     end
   file.close
+  puts "#{filename} has been opened :-)"
 end
+
 
 
 def try_load_students
-  filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  filename = ARGV.first
+  return load_students("students.csv") if filename.nil?
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
-  else # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
-  end
+end
 end
 
+
 try_load_students
-end
 interactive_menu
