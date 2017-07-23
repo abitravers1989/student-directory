@@ -1,3 +1,6 @@
+require "csv"
+
+
 @students = []
 
 def creating_array_of_students(name, cohort, hobbies, country_b, height)
@@ -47,7 +50,7 @@ months = %w(january february, march april may june july august september october
   puts "To finish, just hit return twice".center(70, '*')
 @students = []
   #gets the first name
-  name = STDIN.gets.chomp
+  name = STDIN.gets.chomp.capitalize 
   #while the name is not empty, repeat this code
 while !name.empty?
     puts "Please enter your cohort. Press enter twice when You have done so."
@@ -60,11 +63,11 @@ while !name.empty?
     cohort = cohort.gsub(/\A[a-z\d]*\Z/i, "November").to_sym
   end
     puts "Please enter your hobbies"
-    hobbies = STDIN.gets.chomp
+    hobbies = STDIN.gets.chomp!
     puts "Please enter your country of birth"
-    country_b = STDIN.gets.chomp
+    country_b = STDIN.gets.chomp!
     puts "Finally your height"
-   height = STDIN.gets.chomp
+   height = STDIN.gets.chomp!
 #######it breaks the cutout of the loop ... so double return no longer works
 creating_array_of_students(name, cohort, hobbies, country_b, height)
 
@@ -92,7 +95,8 @@ def print_students_list(h)
     h = @students.group_by {|x| x[:cohort]}.values
           h.each do |student|
           student.each_with_index do |y, index|
-          puts "#{index+1}. Name: #{y[:name]} Cohort: #{y[:cohort]}"
+            puts "#{index[+1]}. Name: #{y[:name]} Cohort: #{y[:cohort]} Hobbies: #{:hobbies}
+            Country of Birth: #{:country_b} Height: #{:height}"
         end
     end
   x = @students.count
@@ -112,8 +116,8 @@ def save_students
   filename = STDIN.gets.chomp
   filename = "students.csv" if filename.empty?
   file = File.open(filename, "w") do |file|
-     @students.each do |student|
-     student_data = [student[:name], student[:cohort], student[:hobbies], student [:country_b], student[:height]]
+     @students.each_with_index do |student, index|
+     student_data = [index[+1], student[:name], student[:cohort], student[:hobbies], student [:country_b], student[:height]]
      file << student_data.join(",")
      end
    end
