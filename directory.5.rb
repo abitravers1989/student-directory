@@ -50,11 +50,11 @@ months = %w(january february, march april may june july august september october
   puts "To finish, just hit return twice".center(70, '*')
 @students = []
   #gets the first name
-  name = STDIN.gets.chomp.capitalize 
+  name = STDIN.gets.chomp.capitalize
   #while the name is not empty, repeat this code
 while !name.empty?
     puts "Please enter your cohort. Press enter twice when You have done so."
-    cohort = STDIN.gets.chomp
+    cohort = STDIN.gets.chomp.capitalize
     if !months.include?(cohort)
     puts "Please enter a month name only, typed out in full, for example; November"
     cohort = STDIN.gets.chomp
@@ -95,8 +95,12 @@ def print_students_list(h)
     h = @students.group_by {|x| x[:cohort]}.values
           h.each do |student|
           student.each_with_index do |y, index|
-            puts "#{index[+1]}. Name: #{y[:name]} Cohort: #{y[:cohort]} Hobbies: #{:hobbies}
+            id = index.to_i
+            id = 0
+            id =+1
+            puts "#{id}. Name: #{y[:name]} Cohort: #{y[:cohort]} Hobbies: #{:hobbies}
             Country of Birth: #{:country_b} Height: #{:height}"
+
         end
     end
   x = @students.count
