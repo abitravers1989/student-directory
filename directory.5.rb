@@ -125,12 +125,10 @@ def load_students(filename = "students.csv")
   if you do not wish to continue with the students.csv file."
   filename = STDIN.gets.chomp
   filename = "students.csv" if filename.empty?
-    file = File.open(filename, "r")
-    file.readlines.each do | line |
+    file = File.open(filename, "r").readlines.each do | line |
       name, cohort, hobbies, country_b, height = line.chomp.split(',')
-creating_array_of_students(name, cohort, hobbies, country_b, height)
+      creating_array_of_students(name, cohort, hobbies, country_b, height)
     end
-  file.close
   puts "#{filename} has been opened :-)"
 end
 
