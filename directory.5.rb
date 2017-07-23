@@ -5,28 +5,23 @@ def creating_array_of_students(name, cohort)
 end
 
 
-def print_menu
+def interactive_selection_menu
+loop do
    puts "1. Input the students"
    puts "2. Show the students"
    puts "3. Save the list to students.csv"
    puts "4. Load the list from students.csv"
    puts "9. Exit"
+   process_after_user_selection(STDIN.gets.chomp)
+ end
 end
 
 
-def interactive_menu
-   loop do
-    print_menu
-    process(STDIN.gets.chomp)
-  end
-end
-
-
-def process(selection)
+def process_after_user_selection(selection)
   case selection
     when "1"
       "You have selected 1, we will now go through the process to put students into our database."
-      input_students
+      input_students_directly_in_interface
      when "2"
        "You have selected 2, here are the students currently in our database."
         show_students
@@ -45,7 +40,7 @@ def process(selection)
 end
 
 
-def input_students
+def input_students_directly_in_interface
 months = %w(january february, march april may june july august september october november december January February March April May June July August September October November December)
 
   puts "Please enter the names of the students".center(70, '*')
@@ -82,45 +77,32 @@ creating_array_of_students(name, cohort)
     name = STDIN.gets.chomp
 end
 
-
 end
 
 
 def show_students
-  print_header
   print_students_list(@students)
-  print_footer(@students)
 end
 
-
-
-def print_header
-puts "The students of Villains Academy".center(70, '*')
-puts "-------------".center(70)
-
-end
 
 
 def print_students_list(h)
-h = h.group_by {|x| x[:cohort]}.values
-    h.each do |student|
-      student.each_with_index do |y, index|
-        puts "#{index}: #{y[:name]} Cohort #{y[:cohort]}"
-      end
+  puts "The students of Villains Academy".center(70, '*')
+  puts "-------------".center(70)
+    h = h.group_by {|x| x[:cohort]}.values
+        h.each do |student|
+          student.each_with_index do |y, index|
+          puts "#{index}: #{y[:name]} Cohort #{y[:cohort]}"
+        end
+    end
+  x = @students.count
+    if x >= 1
+      puts "Overall, we have #{x} great students".center(70, '*')
+    elsif x <= 0
+      puts "No Students :-(".center(70)
     end
 end
 
-
-def print_footer(students)
-  students = @students
-  x = @students.count
-  if x >= 1
-  puts "Overall, we have #{x} great students".center(70, '*')
-elsif x <= 0
-  puts "No Students :-(".center(70)
-end
-
-end
 
 def save_students
   puts "Please put the name of the file you wish to save the students too. If you do
@@ -164,4 +146,4 @@ end
 
 
 try_load_students
-interactive_menu
+interactive_selection_menu
