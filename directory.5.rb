@@ -1,7 +1,7 @@
 @students = []
 
-def creating_array_of_students(name, cohort)
-    @students << {name: name, cohort: cohort}
+def creating_array_of_students(name, cohort, hobbies, country_b, height)
+    @students << {name: name, cohort: cohort, hobbies: hobbies, country_b: country_b, height: height}
 end
 
 
@@ -9,8 +9,8 @@ def interactive_selection_menu
 loop do
    puts "1. Input the students"
    puts "2. Show the students"
-   puts "3. Save the list to students.csv"
-   puts "4. Load the list from students.csv"
+   puts "3. Save the list of students"
+   puts "4. Load the list of students"
    puts "9. Exit"
    process_after_user_selection(STDIN.gets.chomp)
  end
@@ -66,7 +66,7 @@ while !name.empty?
     puts "Finally your height"
    height = STDIN.gets.chomp
 #######it breaks the cutout of the loop ... so double return no longer works
-creating_array_of_students(name, cohort)
+creating_array_of_students(name, cohort, hobbies, country_b, height)
 
 
     x = @students.count
@@ -89,16 +89,18 @@ end
 def print_students_list(h)
   puts "The students of Villains Academy".center(70, '*')
   puts "-------------".center(70)
-    h = h.group_by {|x| x[:cohort]}.values
-        h.each do |student|
+    h = @students.group_by {|x| x[:cohort]}.values
+          h.each do |student|
           student.each_with_index do |y, index|
-          puts "#{index}: #{y[:name]} Cohort #{y[:cohort]}"
+          puts "#{index+1}. Name: #{y[:name]} Cohort: #{y[:cohort]}"
         end
     end
   x = @students.count
-    if x >= 1
+    if x > 1
       puts "Overall, we have #{x} great students".center(70, '*')
-    elsif x <= 0
+    elsif x == 1
+      puts "Overall, we have #{x} special student".center(70, '*')
+    else
       puts "No Students :-(".center(70)
     end
 end
@@ -109,25 +111,24 @@ def save_students
   not have one please use 'students.csv'. This is the default file we will use."
   filename = STDIN.gets.chomp
   filename = "students.csv" if filename.empty?
-  file = File.open(filename, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+  file = File.open(filename, "w") do |file|
+     @students.each do |student|
+     student_data = [student[:name], student[:cohort], student[:hobbies], student [:country_b], student[:height]]
+     file << student_data.join(",")
+     end
+   end
   puts "Thank you, your list has been created and it is a goodun!"
 end
 
-def load_students(filename)
+def load_students(filename = "students.csv")
   puts "We are loading the database of students. Please select a filename to load
   if you do not wish to continue with the students.csv file."
   filename = STDIN.gets.chomp
   filename = "students.csv" if filename.empty?
     file = File.open(filename, "r")
     file.readlines.each do | line |
-      name, cohort = line.chomp.split(',')
-creating_array_of_students(name, cohort)
+      name, cohort, hobbies, country_b, height = line.chomp.split(',')
+creating_array_of_students(name, cohort, hobbies, country_b, height)
     end
   file.close
   puts "#{filename} has been opened :-)"
