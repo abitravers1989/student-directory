@@ -1,5 +1,5 @@
-require "csv"
 
+require 'csv'
 
 @students = []
 
@@ -114,28 +114,29 @@ def print_students_list(h)
 end
 
 
-def save_students
+def save_students(filename = "students.csv")
   puts "Please put the name of the file you wish to save the students too. If you do
-  not have one please use 'students.csv'. This is the default file we will use."
+  not have one please use 'students.csv'. Otherwise please end your file name with .csv"
   filename = STDIN.gets.chomp
-  filename = "students.csv" if filename.empty?
-  file = File.open(filename, "w") do |file|
-     @students.each_with_index do |student, index|
-     student_data = [index[+1], student[:name], student[:cohort], student[:hobbies], student [:country_b], student[:height]]
-     file << student_data.join(",")
+  file = Array.new
+    CSV.open("#{filename}", "a+") do |file|
+        @students.each do |student|
+          file <<[student[:name], student[:cohort]]
      end
    end
-  puts "Thank you, your list has been created and it is a goodun!"
+   x = @students.count
+  puts "Thank you, your list has been created. #{x==1 ? "student has" : "students have"} been saved to #{filename}.".center(70, '*')
 end
+
 
 def load_students(filename = "students.csv")
   puts "We are loading the database of students. Please select a filename to load
   if you do not wish to continue with the students.csv file."
   filename = STDIN.gets.chomp
   filename = "students.csv" if filename.empty?
-    file = File.open(filename, "r").readlines.each do | line |
-      name, cohort, hobbies, country_b, height = line.chomp.split(',')
-      creating_array_of_students(name, cohort, hobbies, country_b, height)
+    file = CSV.foreach(filename, "r") do | line |
+      name, cohort = line.chomp.split(',')
+      creating_array_of_students(name, cohort)
     end
   puts "#{filename} has been opened :-)"
 end
